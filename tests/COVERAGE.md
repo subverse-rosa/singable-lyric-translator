@@ -1,9 +1,10 @@
 # Migration coverage ledger
 
-This infrastructure change keeps the eight v1.7.2 runtime files, root ZIP and
-checksum byte-for-byte unchanged. It consolidates the local master's 55 test
+The infrastructure migration initially kept the eight v1.7.2 runtime files,
+ZIP and checksum unchanged. It consolidated the local master's 55 test
 methods into 50, then adds five distribution/isolation regressions: 55 methods
-in total. The count is an inventory, not an acceptance score.
+in total. v1.8 then adds 12 notation-input/conversion regressions, bringing the
+suite to 67. The count is an inventory, not an acceptance score.
 
 | Original area | Public location | Treatment |
 | --- | --- | --- |
@@ -13,6 +14,7 @@ in total. The count is an inventory, not an acceptance score.
 | Architecture contracts | `test_architecture.py` (5) | Retained with invented hook text: 4+4 segmentation, six parallel hooks, annotated relations and speaker roles. |
 | Seven workflow substring tests plus rule-inventory test | `test_contracts.py` (3), `fixtures/rule_inventory.json` | Merged into 44 declaration checks, explicit default/retired-rejection checks and a formatting-tolerance regression. Exact example wording is not a quality test. |
 | Nine release/archiver tests | `test_release.py` (14) | Nine retained; five added for published ZIP/source agreement, bad/missing checksum, version progression, output isolation and protected source folders. |
+| v1.8 notation helpers | `test_notation.py` (12) | Keys, accidentals, octave conventions, exact/display timing, key-signature carry/reset, tuplets and PDF-map voice/tie invariants. |
 
 The former rule inventory contained **44** entries; its old `45` comment was
 incorrect. IDs R01-R44 make the public inventory explicit. Removed brittle
@@ -32,7 +34,14 @@ tested with fresh candidate reviews, not equality to those example phrases.
 - `historical_checker_expectations.json`: status metadata only. The original
   17 reply files are optional local inputs and are not published.
 
-CI performs a build with no private history or third-party Python packages.
+The primary CI matrix performs a build with no private history or third-party Python packages.
 It does not run the 44 scenarios against a model, transcribe a real score,
 certify an installation platform or conduct a singer trial. Source intake and
-PDF/numbered-notation workflows are separate future changes.
+PDF/numbered-notation workflow instructions are not themselves behaviorally certified.
+
+An additional CI job installs the optional renderers and exercises both paths
+with invented material: bilingual staff/numbered SVG/HTML and preserved-PDF
+output, plus rejection of a mismatched source hash. A local Windows browser
+also produced the bilingual PDF; both example PDFs were visually inspected.
+These are small integration examples, not coverage of arbitrary real-world
+scores, source-search accuracy or a real singer trial.

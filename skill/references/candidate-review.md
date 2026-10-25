@@ -4,7 +4,7 @@ Line records require stable ID (e.g. V2-L01), source relation, baseline wording,
 
 ## Standard pass
 
-Identify only the most material faults; for each provide old → proposed, reason, and whether source score supports the rhythmic claim. Deliver text-only lyrics on request. No score drawing.
+Identify only the most material faults; for each provide old → proposed, reason, and whether source score supports the rhythmic claim. Deliver text-only lyrics by default. An explicit score request routes separately to [score production](score-production.md); it does not change approved lyric decisions.
 
 ## On-demand Deep Review
 

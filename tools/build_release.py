@@ -11,7 +11,7 @@ import sys
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-SUPPORTED = {'.md', '.json', '.py', '.txt'}
+SUPPORTED = {'.md', '.json', '.py', '.txt', '.mei'}
 UPLOAD_ZIP = 'singable-lyric-translator_latest.zip'  # mutable, always the newest build; versioned copies live in dist/ and ../_archive/
 
 def sha(data):

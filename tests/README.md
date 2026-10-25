@@ -22,6 +22,11 @@ AUTO_PASS, one AUTO_FAIL and one MANUAL_REVIEW_REQUIRED. It checks the count
 example and the synthetic rhythm map. A CI build exports packages into a clean
 temporary directory and confirms the checkout was not modified.
 
+The optional score-renderer CI job installs `tools/score-requirements.txt` and
+runs `tools/smoke_scores.py` on invented material. It checks both rendering paths
+and a wrong-source rejection; actual browser-PDF rendering and visual QA remain
+separate checks. No original user scores or lyrics are uploaded as fixtures.
+
 The public examples and hook passages in `fixtures/` are invented test material,
 not completed translations or replies from a real acceptance session. The
 runtime rhythm example is illustrative and has no score/audio transcription.

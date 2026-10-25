@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 .venv/
 tests/scratch-*/
+tests/history/
+.local-backups/
 *.tmp
 .DS_Store
 Thumbs.db
