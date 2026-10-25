@@ -1,11 +1,11 @@
 ---
 name: singable-lyric-translator
-description: Translate English song lyrics into singable Chinese (可唱级歌词翻译), preserving semantic relations, repeated hooks and source architecture while fitting syllable slots, Chinese tones and rhyme. Use when the user wants lyrics translated or rewritten to be sung to a melody, mentions 可唱翻译, 歌词翻译, 倒字, 押韵, syllable counts or a tune. Do NOT use for generic poetry/lyric-style rewriting with no melody to fit.
+description: Translate English lyrics into singable Chinese (可唱级歌词翻译), audit lyric drafts, find matching score sources from a song or YouTube link, and produce bilingual staff or numbered-notation PDFs when requested. Preserve meaning, approved wording and melody evidence. Use for 歌词翻译, 倒字, 押韵, 双语五线谱 or 加简谱; not generic poetry rewriting without a melody.
 ---
 
 # Singable Lyric Translator
 
-**Version:** 1.7.2 (released 2026-10-23)
+**Version:** 1.8.0 (released 2026-10-26)
 
 English → Simplified Chinese singable lyrics. Chinese → English: semantic and structural integrity still apply; only the slot-count module applies among the phonetic fitting checks (say so); Chinese tone/rhyme modules do not.
 
@@ -13,6 +13,16 @@ English → Simplified Chinese singable lyrics. Chinese → English: semantic an
 
 ## Workflow
 Classify evidence and mode (M0) → score-first Rhythmic Capacity Mapping (M1, A/any supplied score) → map source architecture → draft the complete song → audit global semantics/structure (M2) → audit local singability and native Chinese (M3) → context pass → resolve genuine conflicts → export with evidence gates and performance status (M4). For a supplied Chinese draft, use targeted repairs. Recheck the global frame after local changes.
+
+## v1.8 source intake and optional score production
+
+**Route the actual request before drafting.** A song/YouTube link can begin source discovery: read [source intake](references/source-intake.md), search available authoritative sources, and compare the specific edition/arrangement. A URL or official publisher alone does not establish Level A, an exact recording match, or permission to adopt rhythm changes. Report what was actually opened/read/listened to. If browsing or audio tools are unavailable, disclose that and continue only within available evidence.
+
+**Engraving is opt-in.** A request for bilingual staff, a notation PDF or adding 简谱 authorizes that delivery; it does not request a fresh translation or approve music/wording changes. Read [score production](references/score-production.md). Preserve approved lyrics and the decision ledger. Choose (1) reviewed MEI/MusicXML → staff / optional numbered guide / Chinese / English, or (2) preserve original PDF system strips and append a mapped numbered guide. Prefer the second for an existing satisfactory bilingual PDF; use the first when new lyric underlay/reflow is needed. Keep original files unchanged. Templates are configurable; the two previously successful styles are defaults, not a mandatory new design.
+
+Accurate notation needs readable melody/rhythm evidence and a reviewed encoding or coordinate map; the user need not personally supply a staff score if a matching reliable source can be found. Chord charts, lyrics, note counts and an unexamined YouTube recording do not establish note durations or underlay. Where source evidence is incomplete, label a provisional transcription and its uncertain bars; do not deliver it as an exact original lead sheet. No automatic OMR/transcription is claimed.
+
+Optional helpers: `scripts/engrave_score.py` uses Verovio and optionally a local Chrome/Edge/Chromium for PDF; `scripts/add_numbers.py` uses pypdf/reportlab and an explicit reviewed map. Their numbered conversion shares `scripts/notation.py`. Read the reference for prerequisites, commands, font setup and limits. Missing dependencies do not block text translation; explain what is missing before claiming a score was generated. Scripts check/render supplied data, never certify source matching, authorized decisions, Chinese quality or real singing. Visually inspect every rendered page and compare pitches, timing, ties/rests, repeats, lyric attacks and credits against the reviewed source before calling a score checked. Engraving success never passes M4.
 
 ## Step 0 — Classify input (always first)
 | Level | User gave | May check | Must NOT claim |
