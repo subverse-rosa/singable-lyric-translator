@@ -13,8 +13,8 @@ repeated hooks and song structure. A companion project to
 
 The ZIP is the original supplied release, unchanged. The eight files under
 `skill/` are exact readable copies of its contents for review. This repository
-contains the packaged runtime; the development master and its tests are maintained
-separately.
+also contains the development checks and build tools. Only the files in
+`release.json`'s runtime allowlist enter an installation package.
 
 ## Install
 
@@ -38,12 +38,35 @@ Adaptive analysis is the default when rhythm evidence is available. Proposed
 rhythmic reallocations require explicit user approval before adoption. Deep Review
 is on demand; ordinary review targets material improvements.
 
-The local master's 55 automated regression tests and source checks passed before
-this upload. Package bytes, the eight-file allowlist and source/manifest hashes
-were checked. Historical checker replays retain their explicit mixed statuses:
-12 AUTO_PASS, 2 AUTO_FAIL for unmarked explanatory prose, and 3 requiring manual
-review. These checks do not certify model behavior, real-score transcription,
-platform installation or actual singer performance.
+Automated checks cover the count/rhythm helpers, evidence-status reporting, rule
+declarations and release packaging. GitHub Actions runs the same entrypoint on
+Windows and Linux; see the check results on each PR. The test inventory and its
+limits are documented in [tests/COVERAGE.md](tests/COVERAGE.md).
+
+Historical local checker replays retain their mixed statuses: 12 AUTO_PASS,
+2 AUTO_FAIL for unmarked explanatory prose, and 3 requiring manual review.
+Those private replies are not required by CI or included here. Automated checks
+do not certify model behavior, real-score transcription, platform installation
+or actual singer performance.
+
+## Development
+
+Use Python 3.10 or newer; these checks need only the standard library:
+
+```sh
+python -B -X utf8 tools/build_release.py --check
+```
+
+To test packaging without replacing the tracked download:
+
+```sh
+python -B -X utf8 tools/build_release.py --output-dir dist/preview
+```
+
+Both commands validate source and run the same tests once. CI uses an output
+folder outside the checkout. This tooling migration leaves the v1.7.2 runtime,
+download ZIP and checksum unchanged. See [CONTRIBUTING.md](CONTRIBUTING.md) for
+the PR workflow, release exports and optional local-history checks.
 
 ## Working with ROSA
 
