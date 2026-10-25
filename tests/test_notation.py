@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'skill/scripts'))
 from notation import degree, rhythm
-from engrave_score import mei_events
+from engrave_score import mei_events, xml_input
 from add_numbers import validate_map
 
 def pdf_map():
@@ -18,6 +18,10 @@ def pdf_map():
             {'id':'b','measure':'1','x':90,'pitches':['C4'],'onset':1,'duration':1}]}],'ties':[['a','b']]}
 
 class NotationTests(unittest.TestCase):
+    def test_musicxml_public_doctype_without_entity_resolution(self):
+        self.assertEqual(xml_input(b'<!DOCTYPE score-partwise PUBLIC "test" "https://example.invalid/dtd"><score-partwise/>'),'<score-partwise/>')
+        with self.assertRaises(ValueError):xml_input(b'<!DOCTYPE x [<!ENTITY secret SYSTEM "file:///x">]><x/>')
+
     def test_flat_key_and_reference_octave(self):
         self.assertEqual(degree('Bb3','Bb3'),{'number':1,'octave':0,'alter':0})
         self.assertEqual(degree('Bb4','Bb3'),{'number':1,'octave':1,'alter':0})

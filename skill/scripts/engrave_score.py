@@ -20,6 +20,13 @@ S='{http://www.w3.org/2000/svg}'
 X='{http://www.w3.org/XML/1998/namespace}id'
 ACC={'s':'#','f':'b','ss':'##','ff':'bb','n':''}
 
+def xml_input(raw):
+    if b'<!ENTITY' in raw:raise ValueError('XML entity declarations are unsupported')
+    # Common MusicXML public DTD declarations are metadata, not needed for rendering.
+    clean=re.sub(br'<!DOCTYPE\s+(?:score-partwise|score-timewise|mei)\s+[^>\[]*>',b'',raw)
+    if b'<!DOCTYPE' in clean:raise ValueError('Internal/unknown XML document declarations are unsupported')
+    return clean.decode('utf-8')
+
 def mei_events(doc,staff='1',layer='1'):
     parents={c:p for p in doc.iter() for c in p}
     keys={};global_key='0';staff_context={}
@@ -142,10 +149,9 @@ def render(source,destination,profile,numbered=False):
     try:import verovio
     except ImportError as exc:raise ValueError('Missing optional dependency: pip install verovio (tested 6.3.0)') from exc
     raw=source.read_bytes()
-    if b'<!DOCTYPE' in raw or b'<!ENTITY' in raw:raise ValueError('External XML declarations are unsupported')
     kit=verovio.toolkit()
     kit.setOptions({'xmlIdSeed':180,'breaks':profile.get('breaks','auto')})
-    if not kit.loadData(raw.decode('utf-8')):raise ValueError(kit.getLog())
+    if not kit.loadData(xml_input(raw)):raise ValueError(kit.getLog())
     doc=ET.fromstring(kit.getMEI())
     events={};ties=[]
     if numbered:
@@ -197,14 +203,22 @@ def render(source,destination,profile,numbered=False):
 
 def print_pdf(folder,browser):
     target=(folder/'score.pdf').resolve()
+    if target.exists():raise ValueError('PDF exists; render a new version/folder')
     profile=folder.resolve()/('browser-'+uuid.uuid4().hex)
     profile.mkdir()
     try:
         result=subprocess.run([str(browser),'--headless','--disable-gpu','--no-first-run','--no-pdf-header-footer',
                         '--user-data-dir='+str(profile),'--print-to-pdf='+str(target),(folder/'score.html').resolve().as_uri()],timeout=60,capture_output=True)
         if result.returncode:raise ValueError('Browser print failed: '+result.stderr.decode('utf-8',errors='replace')[-2000:])
+        def ready():
+            if not target.is_file():return False
+            try:
+                with target.open('rb') as f:
+                    f.seek(max(0,target.stat().st_size-100));return b'%%EOF' in f.read()
+            except OSError:return False
         deadline=time.monotonic()+20
-        while not target.is_file() and time.monotonic()<deadline:time.sleep(.2)
+        while not ready() and time.monotonic()<deadline:time.sleep(.2)
+        if not ready():raise ValueError('Browser did not finish score.pdf; HTML/SVG remain available')
     finally:
         if profile.resolve().parent==folder.resolve():shutil.rmtree(profile,ignore_errors=True)
     if not target.is_file():raise ValueError('Browser did not produce score.pdf; HTML/SVG remain available')
