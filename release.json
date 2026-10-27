@@ -1,7 +1,7 @@
 {
   "name": "singable-lyric-translator",
-  "version": "1.8.0",
-  "release_date": "2026-10-26",
+  "version": "1.9.0",
+  "release_date": "2026-10-28",
   "runtime_files": [
     "SKILL.md",
     "references/candidate-review.md",
@@ -17,7 +17,9 @@
     "references/score-example.mei",
     "scripts/notation.py",
     "scripts/engrave_score.py",
-    "scripts/add_numbers.py"
+    "scripts/add_numbers.py",
+    "references/score-handoff.md",
+    "scripts/handoff.py"
   ],
   "profiles": {
     "standard": "named-folder",

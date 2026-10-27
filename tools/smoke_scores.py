@@ -20,6 +20,8 @@ def main():
     assert '晨' in (out/'engraved/score.html').read_text(encoding='utf-8')
     assert 'jianpu-tie' in (out/'engraved/page-01.svg').read_text(encoding='utf-8')
     if args.browser:print_pdf(out/'engraved',args.browser)
+    handoff=render(ROOT/'tests/fixtures/handoff-example.mei',out/'handoff',profile,True)
+    assert handoff['numbered_events']==16
     imported=render(ROOT/'tests/fixtures/score-import.musicxml',out/'imported',dict(profile,tonic='F4'),True)
     assert imported['numbered_events']==4
     assert [e['pitches'] for e in imported['events'].values()]==[['F4'],['G4'],['A4'],['Bb4']]

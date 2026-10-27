@@ -1,5 +1,17 @@
 # Changes
 
+## 1.9.0 - 2026-10-28
+
+- Add the projection handoff: a reviewed MEI with titles, credits, a namespaced
+  handoff record (lyric version/status, numbered reference), labelled sections and an
+  optional performance `<expansion>` is the single file handed to slide tools.
+- Add `scripts/handoff.py` (standard library): `check` validates metadata, sung route,
+  lyric attacks, ties and approval status; `events` writes sung-order numbered events
+  with Chinese/English syllables as JSON, refusing existing paths and failing encodings.
+- Export never raises `lyric-status`; slide tools must not edit lyrics.
+
+Contract checks do not establish melody/source identity, Chinese quality or real singing.
+
 ## 1.8.0 - 2026-10-26
 
 - Add source intake from song/YouTube links: authoritative source discovery,

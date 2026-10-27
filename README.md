@@ -62,6 +62,9 @@ and reviewed underlay/coordinates are required; a chord chart alone is insuffici
 The [score guide](skill/references/score-production.md) explains inputs, templates,
 fonts, commands and limits. Optional renderer packages are listed in
 `tools/score-requirements.txt`; they are not needed for text translation.
+An approved song is handed to slide tools as the reviewed MEI itself; the
+[score handoff](skill/references/score-handoff.md) defines the record and
+`skill/scripts/handoff.py` checks it with the standard library only.
 
 ## Development
 

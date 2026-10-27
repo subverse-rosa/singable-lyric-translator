@@ -1,11 +1,11 @@
 ---
 name: singable-lyric-translator
-description: Translate English lyrics into singable Chinese (可唱级歌词翻译), audit lyric drafts, find matching score sources from a song or YouTube link, and produce bilingual staff or numbered-notation PDFs when requested. Preserve meaning, approved wording and melody evidence. Use for 歌词翻译, 倒字, 押韵, 双语五线谱 or 加简谱; not generic poetry rewriting without a melody.
+description: Translate English lyrics into singable Chinese (可唱级歌词翻译), audit lyric drafts, find matching score sources from a song or YouTube link, produce bilingual staff or numbered-notation PDFs when requested, and hand approved scores to slide tools. Preserve meaning, approved wording and melody evidence. Use for 歌词翻译, 倒字, 押韵, 双语五线谱 or 加简谱; not generic poetry rewriting without a melody.
 ---
 
 # Singable Lyric Translator
 
-**Version:** 1.8.0 (released 2026-10-26)
+**Version:** 1.9.0 (released 2026-10-28)
 
 English → Simplified Chinese singable lyrics. Chinese → English: semantic and structural integrity still apply; only the slot-count module applies among the phonetic fitting checks (say so); Chinese tone/rhyme modules do not.
 
@@ -23,6 +23,8 @@ Classify evidence and mode (M0) → score-first Rhythmic Capacity Mapping (M1, A
 Accurate notation needs readable melody/rhythm evidence and a reviewed encoding or coordinate map; the user need not personally supply a staff score if a matching reliable source can be found. Chord charts, lyrics, note counts and an unexamined YouTube recording do not establish note durations or underlay. Where source evidence is incomplete, label a provisional transcription and its uncertain bars; do not deliver it as an exact original lead sheet. No automatic OMR/transcription is claimed.
 
 Optional helpers: `scripts/engrave_score.py` uses Verovio and optionally a local Chrome/Edge/Chromium for PDF; `scripts/add_numbers.py` uses pypdf/reportlab and an explicit reviewed map. Their numbered conversion shares `scripts/notation.py`. Read the reference for prerequisites, commands, font setup and limits. Missing dependencies do not block text translation; explain what is missing before claiming a score was generated. Scripts check/render supplied data, never certify source matching, authorized decisions, Chinese quality or real singing. Visually inspect every rendered page and compare pitches, timing, ties/rests, repeats, lyric attacks and credits against the reviewed source before calling a score checked. Engraving success never passes M4.
+
+**Projection handoff (v1.9).** When an approved song goes to slides/projection, the handoff is the reviewed MEI itself (one file, no second lyric copy): titles, credits, a handoff record with `lyric-version` and `lyric-status`, labelled sections and, for repeats, one performance `<expansion>`. Read [score handoff](references/score-handoff.md) and run `scripts/handoff.py check` until it reports no problems. `lyric-status` follows the ledger (`draft` / `text-approved` / `performed`) and is never raised by exporting; use `--require-approved` before a public handoff. Slide tools read the MEI or the `handoff.py events` JSON and must not edit lyrics: corrections come back here as a new lyric version.
 
 ## Step 0 — Classify input (always first)
 | Level | User gave | May check | Must NOT claim |

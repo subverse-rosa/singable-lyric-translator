@@ -4,7 +4,7 @@ The infrastructure migration initially kept the eight v1.7.2 runtime files,
 ZIP and checksum unchanged. It consolidated the local master's 55 test
 methods into 50, then adds five distribution/isolation regressions: 55 methods
 in total. v1.8 then adds 13 notation-input/conversion regressions, bringing the
-suite to 68. The count is an inventory, not an acceptance score.
+suite to 68; v1.9 adds 8 projection-handoff regressions (76). The count is an inventory, not an acceptance score.
 
 | Original area | Public location | Treatment |
 | --- | --- | --- |
@@ -14,6 +14,7 @@ suite to 68. The count is an inventory, not an acceptance score.
 | Architecture contracts | `test_architecture.py` (5) | Retained with invented hook text: 4+4 segmentation, six parallel hooks, annotated relations and speaker roles. |
 | Seven workflow substring tests plus rule-inventory test | `test_contracts.py` (3), `fixtures/rule_inventory.json` | Merged into 44 declaration checks, explicit default/retired-rejection checks and a formatting-tolerance regression. Exact example wording is not a quality test. |
 | Nine release/archiver tests | `test_release.py` (14) | Nine retained; five added for published ZIP/source agreement, bad/missing checksum, version progression, output isolation and protected source folders. |
+| v1.9 projection handoff | `test_handoff.py` (8) | Invented `handoff-example.mei`: metadata record, performance route with reused chorus, repeats without a route, unknown plist target, unlabelled measures, tied-continuation and missing syllables, status values, approval gate, JSON export refusing existing paths and failing encodings. |
 | v1.8 notation helpers | `test_notation.py` (13) | Keys, accidentals, octave conventions, exact/display timing, key-signature carry/reset, tuplets and PDF-map voice/tie invariants. |
 
 The former rule inventory contained **44** entries; its old `45` comment was

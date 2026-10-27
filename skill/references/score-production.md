@@ -114,7 +114,7 @@ preserved pitch contour and phrase duration **with the named changed attacks**;
 do not call the rhythm identical. An unchanged source file hash alone does not
 prove correct output notation or complete source coverage.
 
-Deliver the requested PDF and editable source/map if wanted, with a concise
+For slides/projection, hand over the reviewed MEI per [score handoff](score-handoff.md) after `scripts/handoff.py check` passes. Deliver the requested PDF and editable source/map if wanted, with a concise
 source/lyric version, approved changes and actual checks. Never label mechanical
 rendering, numerical round-trip checks, a visual read or original-song playback
 as real singing of the new lyrics. M4 remains pending until that trial exists.
