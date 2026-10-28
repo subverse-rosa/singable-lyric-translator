@@ -7,7 +7,7 @@ evidence about the tools, not approval of a lyric or rhythm adjustment.
 
 ## Repository layout
 
-- `skill/`: installable instructions, references and two runtime helpers.
+- `skill/`: installable instructions, references, runtime helpers and optional score tools.
 - `tests/`: automated regressions, public synthetic fixtures and manual cases.
 - `tools/`: development-only validation, packaging and local archiving.
 - `release.json`: source version, release date and runtime file allowlist.
