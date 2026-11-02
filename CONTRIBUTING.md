@@ -1,24 +1,37 @@
 # Contributing
 
-Open an issue for feedback or propose a change on a branch and open a pull
-request against `main`. Explain the problem, resulting behavior and relevant
-verification. The maintainer reviews and merges the PR. A green check is
-evidence about the tools, not approval of a lyric or rhythm adjustment.
+## Maintainer workflow
+
+For routine solo maintenance, edit the local checkout, run the relevant checks,
+review the diff and commit locally. These changes can be pushed directly to
+`main`; a PR is optional. Use a branch for isolated work and a PR when a
+separate review is useful or requested. Publishing a GitHub Release remains
+a separate maintainer decision.
+
+## External contributions
+
+Open an issue for feedback, or propose a change on a branch or fork and open a
+pull request against `main`. Explain the problem, resulting behavior and
+relevant verification. The maintainer reviews and merges contributions.
+A green check is evidence about the tools, not approval of a lyric or rhythm
+adjustment.
 
 ## Repository layout
 
 - `skill/`: installable instructions, references, runtime helpers and optional score tools.
 - `tests/`: automated regressions, public synthetic fixtures and manual cases.
 - `tools/`: development-only validation, packaging and local archiving.
+- `dist/`: Git-ignored exports of the current release and temporary preview builds.
+- `.github/workflows/`: checks for pushes to `main` and pull requests.
 - `release.json`: source version, release date and runtime file allowlist.
 - The root ZIP and `SHA256.txt`: the published download, retained until an
   intentional release refresh.
 
-This repository is the reviewable contribution base. If maintaining a separate
-local master or installed skill, synchronize it after merging; GitHub does not
-update those copies automatically. Do not publish chat histories, user scores
-or generated song PDFs as test fixtures. Use invented or appropriately licensed
-material instead.
+`skill/` is the canonical runtime source. Refresh installed copies from the
+reviewed package after a runtime release; GitHub does not update installed
+skills automatically. Documentation-only changes do not require reinstalling
+the runtime. Do not commit private chat histories, user scores or generated
+song deliveries. Use invented or appropriately licensed test fixtures.
 
 ## Checks and builds
 
@@ -63,7 +76,14 @@ python -B -X utf8 tools/build_release.py
 This exports versioned files to `dist/`, refreshes the root upload ZIP and writes
 its SHA-256 checksum. Review and commit the intended published files before
 tagging and creating a GitHub Release. CI never commits, tags, publishes or
-merges a release automatically.
+merges a release automatically. Documentation-only housekeeping can be
+committed without rebuilding the ZIP, moving its tag or bumping the runtime
+version.
+
+Keep only the active release exports in `dist/` after archiving older releases.
+Preview builds may use a fresh temporary output folder. Store recovery snapshots
+and superseded source copies in the local library archive; use clearly named
+branches or worktrees for active development.
 
 `tools/archive_release.py VERSION` is an optional local administration command
 for the original library layout. It needs that version's tag and complete local

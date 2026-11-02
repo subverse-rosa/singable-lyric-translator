@@ -6,15 +6,16 @@ repeated hooks and song structure. A companion project to
 
 ## Package
 
-- Version: **1.8.0**, packaged 2026-10-26.
+- Current version and package date: [release.json](release.json).
+- [Published releases](https://github.com/subverse-rosa/singable-lyric-translator/releases/latest)
 - [Download package](singable-lyric-translator_latest.zip)
 - [SHA-256 checksum](SHA256.txt)
 - [Read the skill instructions](skill/SKILL.md)
 
-The ZIP is built from the 15 runtime files under `skill/`, including optional
-source-intake and score-production modules. This repository
-also contains the development checks and build tools. Only the files in
-`release.json`'s runtime allowlist enter an installation package.
+The ZIP contains the runtime files listed in `release.json`, sourced from
+`skill/`. They include source intake, optional score production and the
+reviewed-score handoff to slide tools. Development checks and build tools
+remain in the repository and are excluded from installation packages.
 
 ## Install
 
@@ -40,8 +41,8 @@ is on demand; ordinary review targets material improvements.
 
 Automated checks cover the count/rhythm helpers, evidence-status reporting, rule
 declarations and release packaging. GitHub Actions runs the same entrypoint on
-Windows and Linux; see the check results on each PR. The test inventory and its
-limits are documented in [tests/COVERAGE.md](tests/COVERAGE.md).
+Windows and Linux for pushes to `main` and for pull requests. The test inventory
+and its limits are documented in [tests/COVERAGE.md](tests/COVERAGE.md).
 
 Historical local checker replays retain their mixed statuses: 12 AUTO_PASS,
 2 AUTO_FAIL for unmarked explanatory prose, and 3 requiring manual review.
@@ -81,9 +82,11 @@ python -B -X utf8 tools/build_release.py --output-dir dist/preview
 ```
 
 Both commands validate source and run the same tests once. CI uses an output
-folder outside the checkout. The v1.8 package retains Adaptive approval gates and
-on-demand Deep Review. See [CONTRIBUTING.md](CONTRIBUTING.md) for
-the PR workflow, release exports and optional local-history checks.
+folder outside the checkout. The runtime retains Adaptive approval gates and
+on-demand Deep Review. Routine solo maintenance can be committed locally and
+pushed directly to `main`; use a branch or PR when a separate review is useful.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for maintenance, external contributions,
+release exports and optional local-history checks.
 
 ## Working with ROSA
 
